@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pillow = "*"
+django-crispy-forms = "*"
+django-formtools = "*"
+future = "*"
+"httplib2" = "*"
+six = "*"
+django-import-export = "*"
+django-simple-captcha = "*"
+django-pure-pagination = "*"
+numpy = "*"
+matplotlib = "*"
+easygui = "*"
+pygal = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"

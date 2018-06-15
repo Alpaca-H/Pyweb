@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<link rel="stylesheet" href="{% static 'load/css/highlights/github.css' %}">
+</head>
+<body>
+
+<div style="width: 100%;display:block;word-break: break-all;word-wrap: break-word;">
+{{ post.text |safe}}
+
+</div>
+
+
+
+</body>
+</html>
