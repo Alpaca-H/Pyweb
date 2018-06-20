@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+pymysql = "*"
+markdown = "*"
+djangorestframework = "*"
+mysqlclient = "*"
+pillow = "*"
+future = "*"
+django-crispy-forms = "*"
+django-formtools = "*"
+"httplib2" = "*"
+six = "*"
+django-import-export = "*"
+django-guardian = "*"
+coreapi = "*"
+django-filters = "*"
+django-filter = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
