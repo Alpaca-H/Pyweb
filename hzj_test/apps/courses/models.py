@@ -6,6 +6,7 @@ from datetime import datetime
 from DjangoUeditor.models import UEditorField
 from organization.models import CourseOrg, Teacher
 
+#课程
 class Course(models.Model):
     DEGREE_CHOICES = (
         ("cj", u"初级"),
@@ -21,7 +22,7 @@ class Course(models.Model):
     # detail = UEditorField(verbose_name=u"课程详情", width=600, height=300, imagePath="courses/ueditor/", filePath="courses/ueditor/",default='')
     detail = models.CharField(verbose_name="课程详情",default='',max_length=120)
     is_banner = models.BooleanField(default=False, verbose_name=u"是否轮播")
-    degree = models.CharField(choices=DEGREE_CHOICES, max_length=2, verbose_name=u"难度",default='高级')
+    degree = models.CharField(choices=DEGREE_CHOICES, max_length=2, verbose_name=u"难度",default='gj')
     # # 使用分钟做后台记录(存储最小单位)前台转换
     learn_times = models.IntegerField(default=0, verbose_name=u"学习时长(分钟数)")
     # # 保存学习人数:点击开始学习才算

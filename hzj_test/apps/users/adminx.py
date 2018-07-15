@@ -3,7 +3,7 @@ from django.apps import AppConfig
 
 from courses.models import Course, Video, Lesson, CourseResource
 
-__author__ = 'mtianyan'
+__author__ = 'hzj'
 __date__ = '2018/1/9 0009 08:02'
 
 import xadmin
@@ -19,13 +19,11 @@ from xadmin import views
 from .models import EmailVerifyRecord, Banner, UserProfile
 
 
-# X admin的全局配置信息设置
 class BaseSetting(object):
     # 主题功能开启
     enable_themes = True
     use_bootswatch = True
 
-# x admin 全局配置参数信息设置
 class GlobalSettings(object):
     site_title = "阿驼的后台管理系统"
     site_footer = "Alpaca_mooc "

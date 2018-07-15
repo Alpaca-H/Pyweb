@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse
-from  django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.backends import ModelBackend
 from .models import UserProfile
 from django.db.models import Q
 from django.contrib.auth.hashers import make_password
@@ -19,7 +19,8 @@ class CustomBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
             #传再django里面的时密文，传出来的时铭文，输入的也时明文，无法匹配，所以我们这里只查username
-            user = UserProfile.objects.get(Q(username=username)|Q(email=username))    #username表示之前我们输入的username他可以表示我们输入的账号
+            user = UserProfile.objects.get(Q(username=username)|Q(email=username))
+            #username表示之前我们输入的username他可以表示我们输入的账号
             #其中包括电话，邮箱还有账号
             #Q语法的使用 Q()|Q()  表示或  Q(),Q() 表示并且
             #check_password将密码加密进行比较
@@ -29,42 +30,38 @@ class CustomBackend(ModelBackend):
             return None
 
 
-
-
-
-
-def logout_te(request):
-    logout(request)
-    return render(request,'index.html')
-
-
-
-
-
 #基于类
 
-#这里的get直接可以获取username和password,基于类的话他可以自定定义时post请求还是get请求
 class Login_View(View):
+    def get(self,request):
+        #因为是登录模块的表单验证，所以如果是get请求，则账号密码可能会暴露在url地址栏中，所以我们是
+        #拒绝这样的请求的，如果他是get请求，则直接返回空页面给用户
+        return render(request,'login.html')
     def post(self,request):
-        form = loginForm(request.POST)  #传进来一个字典的参数
-        if form.is_valid():    #判断是否符合form表单要求
+        # 如果是post请求，则1.我们要拿到账号和密码 2.检查账号密码是否符合要求。3.符合要求之后是否存在于数据库中
+        # 4.如果存在，则跳转至登录界面，并且显示登录成功。如果失败，则清空输入框跳转至登录
+        form = loginForm(request.POST)#加载表单也就是post上来的表单数据
+        if form.is_valid(): #valid有效的，这里判断form表单是否有效
             username = request.POST['username']
             password = request.POST['password']
-            user = authenticate(username=username, password=password)
+            user = authenticate(username=username,password=password)
             if user is not None:
                 if user.is_active:
-                    login(request, user)
-                    return render(request, 'index.html')
+                    login(request,user)
+                    return  render(request,'index.html',{'user': user})
                 else:
                     return render(request,'login.html',{'message':'账号未激活'})
             else:
-                return render(request,'login.html',{'message':'账号密码错误'})
+                return render(request,'login.html',{'message':'不好意思，不存在这个账号'})
         else:
-            return render(request, 'login.html', {'form_message':form})
+            return render(request,'login.html',{'form_message':form})
+
+
+class logout_te(View):
+
     def get(self,request):
-        return  render(request,'login.html')
-
-
+        logout(request)
+        return render(request,'index.html')
 
 
 class registerview(View):
@@ -90,8 +87,6 @@ class registerview(View):
         else:
             return render(request,'register.html',{'form_message':form})
 
-
-
 class activeView(View):
     def get(self,request,active_code):
         all_records = EmailVerifyRecord.objects.filter(code=active_code)
@@ -106,7 +101,6 @@ class activeView(View):
         else:
             return HttpResponse("注册失败"
                                 "<a>前往登陆</a>")
-
 
 
 class ForgetPassword(View):
@@ -140,19 +134,5 @@ class updatePassword(View):
 
 
 
-
-#不基于类
-# def login_te(request):
-#     if request.method =="POST":
-#         user_name = request.POST.get("username","")
-#         pass_word = request.POST.get("password","")
-#         user = authenticate(username=user_name,password=pass_word)
-#         if user is not None:
-#             login(request,user)
-#             return render(request,'index.html')
-#         else:
-#             return render(request,'login.html',{'message':"账号密码错误"})
-#     elif request.method=="GET":
-#         return  render(request,'login.html',{})
 
 

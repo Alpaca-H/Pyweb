@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'django_filters',
+    'corsheaders' #跨域
+
 
 
     # 'users.apps.UsersConfig',
@@ -66,6 +68,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -74,6 +77,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+#跨域白名单,默认为False
+#如果True，白名单不会被使用，并且所有的来源都将被接受。默认为False。
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 ROOT_URLCONF = 'hzj_rest_test.urls'
 

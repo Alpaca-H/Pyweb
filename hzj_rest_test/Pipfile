@@ -20,6 +20,7 @@ django-guardian = "*"
 coreapi = "*"
 django-filters = "*"
 django-filter = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 

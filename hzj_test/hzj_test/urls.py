@@ -16,26 +16,40 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,re_path,include
 import xadmin
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,ListView,DetailView
 from users.views import Login_View,logout_te,registerview,activeView,ForgetPassword,updatePassword
 from organization.views import OrgView
+
 from django.views.static import serve
 from hzj_test.settings import MEDIA_ROOT
+
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     path('',TemplateView.as_view(template_name='index.html'),name = "index"),
+
     path('login/',Login_View.as_view(),name = 'login'),
-    path('logout/',logout_te,name = 'logout'),
+
+    path('logout/',logout_te.as_view(),name = 'logout'),
+
     path('register/',registerview.as_view(),name='register'),
+
     re_path('active/(?P<active_code>.*)/$',activeView.as_view(),name="activeView"),
+
     path('forget_password/',ForgetPassword.as_view(),name="forget_password"),
+
     re_path('get_password/(?P<password>.*)/$',updatePassword.as_view(),name='updatePassword'),
+
     re_path(r'^captcha/', include('captcha.urls')),
+
+
     re_path('media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT }),
 
 
-    path('org/',include('organization.urls',namespace="org"))
+    path('org-list/',include('organization.urls',namespace="org")),
+
+    path('course/',include('courses.urls',namespace='courses')),
 
 
+    path('usercenter-info/',include('operation.urls',namespace='operation'))
 
 ]

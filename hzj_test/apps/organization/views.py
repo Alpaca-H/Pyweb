@@ -10,16 +10,19 @@ from django.http import HttpResponse
 
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from organization.forms import UserAskForm
+from courses.models import Course
+
+
 
 class OrgView(View):
 
     def get(self,request):
-        all_orgs = CourseOrg.objects.all()
+        all_orgs = CourseOrg.objects.all()#所有课程
         hot_orgs = all_orgs.order_by("-click_nums")[:3]
+        #热门课程等于所有课程根据点击数倒序排序，并取3前三
 
         all_citys = CityDict.objects.all()
         counts = all_orgs.count()
-
 
         city_id = request.GET.get('city','')
         if city_id:
@@ -55,7 +58,7 @@ class OrgView(View):
         #Paginator对所有的all_orgs进行分类  5条数据为一页，
 
         return render(request,'org-list.html',{
-            'course_orgs': orgs,
+            'course_orgs': orgs, #分页的
             'all_citys': all_citys,
             'counts':counts,
             'city_id':city_id,
@@ -70,7 +73,7 @@ class Add_UseAsk(View):
     def post(self,request):
         ask_form = UserAskForm(request.POST)
         if ask_form.is_valid():
-            user_ask = ask_form.save(commit=True) #这里可以将form表单直接提交到数据库，如果设定commit=TRUE的话，那么不但会提交到数据库，还会保存再数据库里面
+            ask_form.save(commit=True) #这里可以将form表单直接提交到数据库，如果设定commit=TRUE的话，那么不但会提交到数据库，还会保存再数据库里面
             return HttpResponse("{'status':'success'}",content_type='application/json')
         else:
             return HttpResponse("{'status':'fail','msg':'提交发生错误'}",content_type='application/json')
@@ -84,3 +87,22 @@ class Teacher_detail(View):
 class Teacher_list(View):
     def get(self,request):
         return render(request,'teachers-list.html')
+
+class org_detail_homepage(View):
+    def get(self,request,org_id):
+        orgs = CourseOrg.objects.get(id=int(org_id))
+        all_course = orgs.course_set.all()[:3]
+        all_teacher = orgs.teacher_set.all()[:1]
+        return render(request,'org-detail-homepage.html',{'org_id':org_id,'all_course':all_course,'all_teacher':all_teacher})
+
+class org_detail_course(View):
+    def get(self,request,org_id):
+        return render(request,'org-detail-course.html',{'org_id':org_id})
+
+class org_detail_desc(View):
+    def get(self,request,org_id):
+        return render(request,'org-detail-desc.html',{'org_id':org_id})
+
+class org_detail_teachers(View):
+    def get(self,request,org_id):
+        return render(request,'org-detail-teachers.html',{'org_id':org_id})

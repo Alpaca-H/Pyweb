@@ -1,22 +1,23 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
 
 <head>
 	<meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
-	<title>我的消息- 慕学在线网</title>
-	<link rel="stylesheet" type="text/css" href="../css/reset.css">
-	<link rel="stylesheet" type="text/css" href="../css/animate.css">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../js/plugins/queryCity/css/cityLayout.css">
-    
-    <link rel="stylesheet" type="text/css" href="../css/lq.datetimepick.css"/>
+	<title>我的收藏- 慕学在线网</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/queryCi{% static 'css/cityLayout.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lq.datetimepick.css' %}"/>
 
 
 
-    <script src="../js/jquery.min.js" type="text/javascript"></script>
-    <script src="../js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
 
 </head>
 <body>
@@ -84,11 +85,11 @@
 	<div class="wp list personal_list">
 	<div class="left">
         <ul>
-            <li class="active2"><a href="usercenter-info.html">个人资料</a></li>
-            <li ><a href="usercenter-mycourse.html">我的课程</a></li>
-            <li ><a href="usercenter-fav-course.html">我的收藏</a></li>
+            <li class="active2"><a href="{% url 'operation:user_info' %}">个人资料</a></li>
+            <li ><a href="{% url 'operation:user_mycourse' %}">我的课程</a></li>
+            <li ><a href="{% url 'operation:user_fav_course' %}">我的收藏</a></li>
             <li >
-                <a href="usercenter-message.html" style="position: relative;">
+                <a href="{% url 'operation:user_message' %}" style="position: relative;">
                     我的消息
                 </a>
             </li>
@@ -291,19 +292,14 @@
 </div>
 <div class="bg" id="dialogBg"></div>
 
-
-<script src="../js/selectUi.js" type='text/javascript'></script>
-<script type="text/javascript" src="../js/plugins/laydate/laydate.js"></script>
-<script src="../js/plugins/layer/layer.js"></script>
-<script src="../js/plugins/queryCity/js/public.js" type="text/javascript"></script>
-<script src="../js/unslider.js" type="text/javascript"></script>
-<script src="../js/plugins/jquery.scrollLoading.js"  type="text/javascript"></script>
-<script src="../js/validateDialog.js"  type="text/javascript"></script>
-<script src="../js/deco-common.js"  type="text/javascript"></script>
-
-<script src='../js/plugins/jquery.upload.js' type='text/javascript'></script>
-<script src="../js/validate.js" type="text/javascript"></script>
-<script src="../js/deco-user.js"></script>
+<script src="{%static 'js/selectUi.js'%}" type='text/javascript'></script>
+<script src="{% static 'js/deco-common.js' %}" type='text/javascript'></script>
+<script type="text/javascript" src="{%static 'js/plugins/laydate/laydate.js'%}"></script>
+<script src="{%static 'js/plugins/layer/layer.js'%}"></script>
+<script src="{%static 'js/plugins/queryCity/js/public.js'%}" type="text/javascript"></script>
+<script src="{%static 'js/unslider.js'%}" type="text/javascript"></script>
+<script src="{%static 'js/plugins/jquery.scrollLoading.js'%}.js"  type="text/javascript"></script>
+<script src="{% static 'js/deco-comment.js' %}"  type="text/javascript"></script>
 
 <script type="text/javascript">
     $('.jsDeleteFav_course').on('click', function(){

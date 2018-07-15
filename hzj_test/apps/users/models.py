@@ -19,7 +19,7 @@ class UserProfile(AbstractUser):
     class Meta:
         verbose_name = "用户信息"
         verbose_name_plural = verbose_name
-        db_table = "UserProfile"
+        db_table = "UserProfile"    #定义表的名称
 
     def __str__(self):
         return self.username
@@ -41,7 +41,7 @@ class EmailVerifyRecord(models.Model):
 
 
 class Banner(models.Model):
-    title = models.CharField(max_length=100,verbose_name="标题")
+    title = models. CharField(max_length=100,verbose_name="标题")
     image = models.ImageField(upload_to="banner/%Y%m",verbose_name="轮播图",max_length=50)
     url = models.URLField(max_length=200,verbose_name="访问地址")
     index = models.IntegerField(default=100,verbose_name="顺序")

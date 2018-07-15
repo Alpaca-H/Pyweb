@@ -13,31 +13,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path,include,re_path
 import xadmin
 from django.views.static import serve
 from hzj_rest_test.settings import MEDIA_ROOT
-from rest_framework.documentation import    include_docs_urls
+from rest_framework.documentation import  include_docs_urls
 
-from goods.views import GoodListViewset,GoodListView
+from goods.test.views import Goods_List_ViewSet,CategoryViewSet
+from rest_framework import routers
 
-snippet_list = GoodListViewset.as_view({
-    'get': 'list',
-})
+
+router = routers.DefaultRouter()
+router.register(r'goods', Goods_List_ViewSet)
+router.register(r'categorys',CategoryViewSet)
 
 
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
-    #path('login',include('users.urls')),
-
     re_path(r'media/(?P<path>.*)$',serve,{'document_root':MEDIA_ROOT}),
 
-    re_path(r'^api-auth/', include('rest_framework.urls')),
 
+
+    re_path(r'^api-auth/', include('rest_framework.urls')),
+    re_path(r'^', include(router.urls)),
     #商品列表页
-    path('goods/',GoodListView.as_view(),name = "list"),
     re_path("docs/",include_docs_urls(title="何泽君")),
 
 ]

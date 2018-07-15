@@ -14,8 +14,10 @@ class loginForm(forms.Form):
 
 
 class CaptchaTestModelForm(forms.Form):
+    #校验验证码和邮箱
     captcha = CaptchaField()
     email = forms.EmailField(required=True,min_length=5)
+
 
 
 class forgetCaptcha(forms.Form):

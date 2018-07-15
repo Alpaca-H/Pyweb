@@ -73,7 +73,7 @@ function search_click(){
     }else if(type == "org"){
         request_url = "/org/list?keywords="+keywords
     }
-    window.location.href = request_url
+    window.location.hre = request_url
 }
 
 //刷新验证码

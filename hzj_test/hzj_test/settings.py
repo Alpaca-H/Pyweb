@@ -17,6 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
 sys.path.insert(0,os.path.join(BASE_DIR,'extra_apps'))
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -38,13 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #apps
     'users',
     'courses',
     'operation',
     'organization',
+
+    #xadmin包
     'xadmin',
     'crispy_forms',
+    #验证码
     'captcha',
+    #分页
     'pure_pagination',
 
 
@@ -55,9 +61,7 @@ AUTH_USER_MODEL = "users.UserProfile"   #使用django自带的user注册时使�
 
 AUTHENTICATION_BACKENDS=(
     'users.views.CustomBackend',
-
 )
-
 
 
 
@@ -76,8 +80,7 @@ ROOT_URLCONF = 'hzj_test.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,7 +95,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'hzj_test.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
